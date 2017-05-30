@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo " * [ Garen DB ] : Creating Initial Structure for Garen DB"
+#
+# Creacion de la estructura inicial de la base de datos
+# la idea seria que tanto el usuario y la contrasenya fueran indicados
+# via parametro. Por ahora dejaremos esto asi.
+
+# TODO
+mysql -u root -p < /usr/share/garen-ohmwrecker/db/initial-db.sql
+
+exit 0

@@ -1,0 +1,30 @@
+Variable,Medida,Unidad,Descripcion
+_G_IQH_SUML13,8.0978,varh,Reactive energy L1..L3- ind. (fundamental comp.)
+_G_FREQ,49.9797,Hz,Measured frequency
+_G_WH_V_HT_SUML13,13963.4233,Wh,Real energy L1..L3- consumed- rate 1
+_G_WH_V,[53.995],Wh,None
+_G_SLN,[0.0055],VA,None
+_G_CQH,[12.6008],varh,None
+_G_Q_SUM3,-0.0044,var,Qsum3=Q1+Q2+Q3 (fundamental comp.)
+_G_QH,[-7.2252],varh,None
+_G_IQH,[5.3756],varh,None
+_G_CQH_SUML13,4706.3336,varh,Reactive energy L1..L3- cap. (fundamental comp.)
+_G_P_SUM3,-0.0033,W,Psum3=P1+P2+P3
+_G_I_SUM3,0.0023,A,Vector sum- IN=I1+I2+I3
+_G_WH_Z,[3.4694],Wh,None
+_G_ILN,[0.0026],A,None
+_G_QH_SUML13,-4698.2358,varh,Reaktive energy L1..L3 (fundamental comp.)
+_G_THD_ILN,[117.092],%,None
+_G_THD_ULN,[7.7053],%,None
+_G_PHASE_SEQ,0.0,,Rotation field- 1=right- 0=none- -1=left
+_G_COS_PHI,[-0.4261],,None
+_G_QLN,[-0.0031],var,None
+_G_WH,[50.5256],Wh,None
+_G_WH_S,[96.1341],VAh,None
+_G_WH_Z_SUML13,1.5791,Wh,Real energy L1..L3- delivered
+_G_ULN,[2.0812],V,None
+_G_ULL,[2.3387],V,None
+_G_S_SUM3,0.0099,VA,Sum- Ssum3=S1+S2+S3
+_G_WH_S_SUML13,14893.67,VAh,Apparent energy L1..L3
+_G_PLN,[-0.0015],W,None
+_G_WH_SUML13,13961.8442,Wh,Real energy L1..L3

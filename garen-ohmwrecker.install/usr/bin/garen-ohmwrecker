@@ -1,0 +1,426 @@
+#!/usr/bin/python3
+#
+#
+# Este script hace:
+# --
+# -- RELLENAR AQUI 
+#
+import cymysql
+import json
+import requests
+import sys
+import urllib.request
+import os
+import configparser
+import threading
+import argparse
+import logging
+
+
+
+# Lo primero va a ser comprobar los permisos
+if os.getuid() == 0:
+	print("r00tness!")
+else:
+	print("I cannot run as a mortal. Sorry.")
+	sys.exit(0)
+
+
+# Algunas variables que se utilizan en 
+# en Garen
+garen_log="/var/log/garen.log"
+garen_conf="/etc/garen-ohmwrecker/garen.conf"
+garen_custom_conf="/etc/garen-ohmwrecker/garen-custom.conf"
+garen_conf_d="/etc/garen-ohmwrecker/conf.d/"
+rutaJSON=""
+rutaNotesJSON=""
+
+# Logging values
+logging.basicConfig(filename=garen_log,format='%(asctime)s %(message)s')
+
+
+# Some values for default variables
+default_sensor_model=""
+sensor_ip=""
+
+# Daemon info
+interval=10
+
+# Some values for Database
+db_server=""
+db_user=""
+db_pass=""
+db_table_default=""
+db_database=""
+
+# Some arguments - values
+args=""
+
+
+def die(msg):
+	print(" * [ ERROR ] : "+msg)
+	sys.exit(1)
+
+def load_configuration():
+	#
+	# Este metodo lo que hace es leer el fichero de configuracion y obtener
+	# los parametros para la conexion a la base de datos y otros datos 
+	# utiles para garen.
+	
+	# Lo primero, hacemos log de que la configuracion va a ser
+	# cargada en memoria.	
+
+
+	logging.warning(' * Loading configuration')
+
+	# Obtenemos un objeto de tipo configparser
+	# que nos permite acceder a los diferentes 
+	# parametros de configuracion que se encuentran 
+	# en el fichero, separados por secciones.
+	config = configparser.ConfigParser()
+	config.read(garen_conf)
+
+	# Supporting custom configuration
+	# from users.
+	config.read(garen_custom_conf)
+
+	
+	# Una vez tenemos la configuracion en "config", lo que hacemos 
+	# es rellenar las variables que utilitaremos con los diferentes valores.
+	# En realidad esto no haria falta, podriamos realizar todas las 
+	# consultas a la "configuracion" de nuestro programa utilizando
+	# la estrcutura "config" que hemos generado en las lineas anteriores
+	# pero esto favorece la legibilidad del codigo.
+	
+	# Servidor de bases de datos
+	global db_server 
+	db_server = config["mysqld"]["server"]
+	# Usuario	
+	global 	db_user 
+	db_user = config["mysqld"]["user"]
+	# Contrasenya	
+	global db_pass 
+	db_pass = config["mysqld"]["pass"]
+	# Tabla por defecto
+	global db_table_default
+	db_table_default = config["mysqld"]["table_default"]
+
+	global db_database
+	db_database = config["mysqld"]["database"]
+
+	# Modelo de sensor por defecto (Janitza)
+	global default_sensor_model
+	default_sensor_model=config["general"]["sensor_model"]
+
+	global interval
+	interval =int(config["daemon"]["interval"])
+
+	global sensor_ip
+	sensor_ip = config["general"]["sensor_ip"]
+
+	logging.warning(" * Load configuration done: "+str(sensor_ip)+" each "+str(interval)+" seconds")
+
+def dirty_solution(jsonString):
+	#
+	# Vamos a cambiar las diferentes claves del JSON antes de 
+	# cargarlo en memoria.
+	# esto es dificilillo
+	jsonString = jsonString.replace("_G_ULN","_G_ULN_0",1)
+	jsonString = jsonString.replace("_G_ULN\"","_G_ULN_1\"",1)
+	jsonString = jsonString.replace("_G_ULN\"","_G_ULN_2\"",1)
+
+	jsonString = jsonString.replace("_G_ULL","_G_ULL_0",1)
+	jsonString = jsonString.replace("_G_ULL\"","_G_ULL_1\"",1)
+	jsonString = jsonString.replace("_G_ULL\"","_G_ULL_2\"",1)
+
+	jsonString = jsonString.replace("_G_ILN","_G_ILN_0",1)
+	jsonString = jsonString.replace("_G_ILN\"","_G_ILN_1\"",1)
+	jsonString = jsonString.replace("_G_ILN\"","_G_ILN_2\"",1)
+
+	jsonString = jsonString.replace("_G_PLN","_G_PLN_0",1)
+	jsonString = jsonString.replace("_G_PLN\"","_G_PLN_1\"",1)
+	jsonString = jsonString.replace("_G_PLN\"","_G_PLN_2\"",1)
+
+	jsonString = jsonString.replace("_G_SLN","_G_SLN_0",1)
+	jsonString = jsonString.replace("_G_SLN\"","_G_SLN_1\"",1)
+	jsonString = jsonString.replace("_G_SLN\"","_G_SLN_2\"",1)
+
+	jsonString = jsonString.replace("_G_QLN","_G_QLN_0",1)
+	jsonString = jsonString.replace("_G_QLN\"","_G_QLN_1\"",1)
+	jsonString = jsonString.replace("_G_QLN\"","_G_QLN_2\"",1)
+	
+	#_G_COS_PHI
+	jsonString = jsonString.replace("_G_COS_PHI","_G_COS_PHI_0",1)
+	jsonString = jsonString.replace("_G_COS_PHI\"","_G_COS_PHI_1\"",1)
+	jsonString = jsonString.replace("_G_COS_PHI\"","_G_COS_PHI_2\"",1)
+	
+	# _G_WH
+	jsonString = jsonString.replace("_G_WH","_G_WH_0",1)
+	jsonString = jsonString.replace("_G_WH\"","_G_WH_1\"",1)
+	jsonString = jsonString.replace("_G_WH\"","_G_WH_2\"",1)
+
+	# _G_WH_V
+	jsonString = jsonString.replace("_G_WH_V","_G_WH_V_0",1)
+	jsonString = jsonString.replace("_G_WH_V\"","_G_WH_V_1\"",1)
+	jsonString = jsonString.replace("_G_WH_V\"","_G_WH_V_2\"",1)	
+	
+	# _G_WH_Z
+	jsonString = jsonString.replace("_G_WH_Z","_G_WH_Z_0",1)
+	jsonString = jsonString.replace("_G_WH_Z\"","_G_WH_Z_1\"",1)
+	jsonString = jsonString.replace("_G_WH_Z\"","_G_WH_Z_2\"",1)
+
+	## _G_WH_S
+	jsonString = jsonString.replace("_G_WH_S\"","_G_WH_S_0\"",1)
+	jsonString = jsonString.replace("_G_WH_S\"","_G_WH_S_1\"",1)
+	jsonString = jsonString.replace("_G_WH_S\"","_G_WH_S_2\"",1)
+
+	## _G_QH
+	jsonString = jsonString.replace("_G_QH","_G_QH_0",1)
+	jsonString = jsonString.replace("_G_QH\"","_G_QH_1\"",1)
+	jsonString = jsonString.replace("_G_QH\"","_G_QH_2\"",1)
+
+	## _G_IQH
+	jsonString = jsonString.replace("_G_IQH","_G_IQH_0",1)
+	jsonString = jsonString.replace("_G_IQH\"","_G_IQH_1\"",1)
+	jsonString = jsonString.replace("_G_IQH\"","_G_IQH_2\"",1)
+
+	## _G_CQH
+	jsonString = jsonString.replace("_G_CQH","_G_CQH_0",1)
+	jsonString = jsonString.replace("_G_CQH\"","_G_CQH_1\"",1)
+	jsonString = jsonString.replace("_G_CQH\"","_G_CQH_2\"",1)
+
+	# _G_THD_ULN
+	jsonString = jsonString.replace("_G_THD_ULN","_G_THD_ULN_0",1)
+	jsonString = jsonString.replace("_G_THD_ULN\"","_G_THD_ULN_1\"",1)
+	jsonString = jsonString.replace("_G_THD_ULN\"","_G_THD_ULN_2\"",1)
+
+	# _G_THD_ILN
+	jsonString = jsonString.replace("_G_THD_ILN","_G_THD_ILN_0",1)
+	jsonString = jsonString.replace("_G_THD_ILN\"","_G_THD_ILN_1\"",1)
+	jsonString = jsonString.replace("_G_THD_ILN\"","_G_THD_ILN_2\"",1)
+
+	return jsonString
+
+	
+	
+def store_in_db(skeys,smeasures):
+	
+	logging.warning(' * Storing data into DB' +db_table_default)
+	# Open database connection
+	import cymysql	
+	try:
+
+		logging.warning(' * Creating connector '+db_user+db_pass+db_server+db_database )
+		db =cymysql.connect(db_server,db_user,db_pass,db_database)
+
+		# prepare a cursor object using cursor() method
+		logging.warning(' * Creating connector - cursor')
+		cursor = db.cursor()
+
+		# Prepare SQL query to INSERT a record into the database.
+		sql = ("INSERT INTO umg511_tbl ("+",".join(skeys)+") VALUES ('" +"','".join(smeasures)+"');")
+		logging.warning(str(sql))
+		try: 
+			# Execute the SQL command
+			cursor.execute(sql)
+			# Commit your changes in the database
+			db.commit()
+		except:
+			# Rollback in case there is any error
+			db.rollback()
+
+		# disconnect from server
+		db.close()
+
+	except Exception as err:
+		logging.error(" * [ERROR] : "+str(err))
+
+
+
+def lastreplace(s,old,new,ocurrence):
+	# Este metodo se encarga de eliminar la ultima "ocurrencia" de 
+	# un determinado caracter en una cadena, se utiliza en algunos 
+	# momentos del programa.
+	li = s.rsplit(old, ocurrence)
+	return new.join(li)
+
+
+def get_list_of_variables(model):
+	# Vamos a generar una variable que contendra el listado de las variables de la Janitza-511
+	# de tal manera el codigo quede lo mas limpio posible
+	
+	logging.warning(' * Getting values for Model')	
+
+	# Esta variable contiene un diccionario (JSON) que 
+	# nos indica cuales son las variables que deben ser solicitadas
+	# via "url" al sensor
+	
+	# Para conseguir ser lo mas generico posible, 
+	# hemos generado ficheros de configuracion cuyo
+	# nombre incluye el modelo de una manera que podemos 
+	# construir la ruta al fichero sabiendo el modelo 
+	# que vamos a utilizar.
+	confstring=""
+
+	try:
+		conffile=open(garen_conf_d+model+".conf")
+		confstring=conffile.read().replace("\n",",")
+		confstring=lastreplace(confstring,","," ",1)
+
+	except Exception as e:
+
+		logging.error(" * [ERROR] : Model file not found "+str(e))
+
+	# Devolvemos la configuracion obtenida.	
+	logging.warning(' * Return configuration')
+	return confstring
+
+
+def get_json(model):
+	# Esta es la parte mas delicada de la ejecucion de garen
+	# lo que hacemos aqui es preparar la url de consulta con 
+	# la IP del dispositivo y la lista de variables que nos interesan
+	# del modelo.
+	logging.warning(' * JSON values are getting from '+str(sensor_ip))
+
+	# Obtenemos la lista de variables
+	var_model=get_list_of_variables(model)
+	
+	# Construimos la url
+	url="http://"+str(sensor_ip)+"/json.do?"+var_model
+	
+	# DEBUG
+	# logging.warning("URL is "+url)
+	# Realizamos la peticion
+	r = urllib.request.urlopen(url)
+	
+	# Devolvemos el resultado ya como objeto diccionario
+	# PATXI
+	# Esto antes era asi, leiamos el json desde la URL y lo decodificabamos
+	# y luego al "cargarlo" en memoria, se construia como objeto, el problema
+	# de ahora es que debemos realizar los cambios "antes" de que sea
+	# un objeto en memoria, debemos tratarlo mientras aun sea
+	# un String. Yo estas lineas no las he podido probar, ya que obviamente 
+	# no puedo realizar la conexion con la Janitza de ninguna 
+	# manera.
+	# Os dejo la linea que habia antes:
+	#return json.loads(r.read().decode())
+
+	# Por si la necesitais, aunque debeis usar el 
+	# metodo dirty_solution para poder luego hacer los 
+	# inserts como tocan.
+	stringJson = r.read().decode()
+	stringJson = dirty_solution(stringJson)
+	return json.loads(stringJson)
+	
+
+def store_measures(jmeasures,model):
+	# Este metodo nos permite obtene las descripciones y generar las 
+	# cadenas que seran almacenadas en la base de datos.
+	logging.warning(' * Storing measures ...')
+	fnotes = open(garen_conf_d+model+".definition")
+	jnotes = json.load(fnotes)
+	
+	# En esta parte si se descomenta cada linea que tiene
+	# logging se hara log de como se van obteniendo los diferentes 
+	# valores
+
+	# Smeasures contendra cada una de las lineas que seran 
+	# almacenadas en la base de datos con los diferentes valores
+	# de las variables.
+	# En un principio dejamos la variable vacia.
+	skeys=[]
+	smeasures=[]
+	for key, value in jmeasures.items():
+		try:
+			skeys.append(str(key).replace("[","").replace("]",""))
+			smeasures.append(str(value[0]).replace("[","").replace("]",""))
+		except Exception as e:
+			logging.warning("Error: "+str(e))
+	# Y ahora almacenamos en la base de datos 
+	# los valores obtenidos
+	store_in_db(skeys,smeasures)
+	
+
+
+def get_parameters():
+	# Obtenemos los parametros que se nos han indicado en la llamada, de tal manera
+	# que podamos cambiar el comportamiento de nuestro programa desde la linea de ordenes
+	# Se esta utilizando una libreria en Python que se encarga de realizar las comprobaciones
+	# pertinentes de cada uno de los argumentos que se pasan, facilitando el uso de los parametros
+	# de manera no-posicional. (da igual invocar al script con los parametros :
+	# 
+	# garen-ohmwrecker --sensorip 192.168.4.254 -m Janitza511 -c
+	#  que
+	# garen-ohmwrecker -m Janitza511 -c --sensorip 192.168.4.254
+
+	parser = argparse.ArgumentParser(description='Store values from Janitza into DB')
+	parser.add_argument("-m","--model",help="the model of sensor")
+	parser.add_argument("-c","--csv",help="type of content to get [CSV format data]", action="store_true")
+	parser.add_argument("--nodaemon", help="Not launch program as a daemon", action="store_true")
+	parser.add_argument("--debug", help="Debugging mode, not Janitza", action="store_true")
+
+	# Obtenemos los diferentes argumentos	
+	args = parser.parse_args()
+	return args
+	
+
+def core():
+	# Metodo "Core" o central, que es el subsceptible a ser
+	# demonizado en caso de ser necesario.
+	global args
+
+	variable_list = get_list_of_variables(args.model)
+	
+	# DEBUG
+	# Esta parte la tenemos aqui para poder hacer pruebas 
+	# en escenarios "desconectados"
+	if args.debug:
+		auxf = open("/usr/share/garen-ohmwrecker/tests/last.json")
+		auxmeasures = dirty_solution(auxf.read())
+		jmeasures = json.loads(auxmeasures)
+	else:
+		# Obtenemos las medidas desde la url
+		jmeasures = get_json(args.model)
+	
+	# DEBUG
+	store_measures(jmeasures,args.model)
+	
+	# This is called for if the values are changed in custom conf
+	load_configuration()
+
+	if not args.nodaemon:
+		threading.Timer(interval, core).start()
+
+
+
+#
+# MAIN
+#
+
+if __name__ == "__main__":
+
+
+	# Este es metodo que se invoca cuando lanzamos a garen desde
+	# la linea de comandos, asi que vamos a  ir haciendo log 
+	# de cada uno de los pasos.
+
+	logging.warning(' * Starting Garen')
+	
+	# Obtenemos los argumentos con los que hemos sido invocados
+	logging.warning(' * Getting parameters ')
+	args=get_parameters()
+	
+	# Load configuration 
+	logging.warning(' * Load configuration ')
+	load_configuration()
+
+	if (args.model == None):
+		logging.warning(" * No sensor set, using default..: "+default_sensor_model)
+		args.model = default_sensor_model
+	
+	
+	core()
+
+
+

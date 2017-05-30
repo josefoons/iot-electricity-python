@@ -1,0 +1,18 @@
+#!/bin/bash 
+
+echo " * [sMake] : Cleaning"
+fakeroot debian/rules clean
+rm ../garen-ohmwrecker*.deb
+
+
+echo " * [sMake] : Building"
+git commit -a -m "Using sMake"
+gbp buildpackage 
+
+
+
+echo " * [sMake] : Installing"
+sudo dpkg -i ../garen-ohmwrecker*.deb
+
+	
+

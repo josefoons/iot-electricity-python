@@ -1,0 +1,124 @@
+#!/usr/bin/python3
+#
+#
+# Este script hace:
+# --
+# -- RELLENAR AQUI 
+#
+
+import sys
+import os
+import configparser
+import argparse
+import logging
+
+
+# Algunas variables que se utilizan en 
+# en Garen
+garen_conf="/etc/garen-ohmwrecker/garen.conf"
+garen_custom_conf="/etc/garen-ohmwrecker/garen-custom.conf"
+garen_conf_d="/etc/garen-ohmwrecker/conf.d/"
+
+
+# Some values for default variables
+default_sensor_model=""
+sensor_ip=""
+# Some arguments - values
+args=""
+
+
+def die(msg):
+	print(" * [ ERROR ] : "+msg)
+	sys.exit(1)
+
+def load_configuration():
+	#
+	# Este metodo lo que hace es leer el fichero de configuracion y obtener
+	# los parametros para la conexion a la base de datos y otros datos 
+	# utiles para garen.
+	
+	# Obtenemos un objeto de tipo configparser
+	# que nos permite acceder a los diferentes 
+	# parametros de configuracion que se encuentran 
+	# en el fichero, separados por secciones.
+	config = configparser.ConfigParser()
+
+	# Supporting custom configuration
+	# from users.
+	config.read(garen_custom_conf)
+
+
+	return config
+
+	
+
+
+def get_parameters():
+	# Obtenemos los parametros que se nos han indicado en la llamada, de tal manera
+	# que podamos cambiar el comportamiento de nuestro programa desde la linea de ordenes
+	# Se esta utilizando una libreria en Python que se encarga de realizar las comprobaciones
+	# pertinentes de cada uno de los argumentos que se pasan, facilitando el uso de los parametros
+	# de manera no-posicional. (da igual invocar al script con los parametros :
+
+	parser = argparse.ArgumentParser(description='Get/Set values from Garen')
+	parser.add_argument("-s","--setip",help="set value of the IP")
+	parser.add_argument("-si","--setinterval",help="set value of the IP")
+	parser.add_argument("-g","--getip",help="get value of the IP", action="store_true")
+	parser.add_argument("-gi","--getinterval",help="get value of the interval", action="store_true")
+
+
+	# Obtenemos los diferentes argumentos	
+	args = parser.parse_args()
+	return args
+	
+
+def set_ip(args,config):
+	
+	print(" * [Garen Conf] : Setting ip in configuration file")
+	# Establecemos la IP en la configuracion.
+	config["general"]["sensor_ip"]=args.setip
+
+
+	return config
+
+def set_interval(args,config):
+	
+	print(" * [Garen Conf] : Setting interval in configuration file")
+	# Establecemos la IP en la configuracion.
+	config["daemon"]["interval"]=args.setinterval
+
+
+	return config
+
+#
+# MAIN
+#
+
+if __name__ == "__main__":
+
+	# Este es metodo que se invoca cuando lanzamos a garen desde
+	# la linea de comandos, asi que vamos a  ir haciendo log 
+	# de cada uno de los pasos.
+
+
+	# Obtenemos los argumentos con los que hemos sido invocados
+	args = get_parameters()
+	
+	# Load configuration 
+	config = load_configuration()
+	if (args.getip):
+		print(" * [Garen Conf] : Sensor ip is "+config["general"]["sensor_ip"])
+	if (args.getinterval):
+		print(" * [Garen Conf] : Sensor ip is "+config["daemon"]["interval"])
+
+	if (args.setip):
+		config = set_ip(args,config)
+			
+	if (args.setinterval):
+		config = set_interval(args,config)	
+
+	# Save configuration file
+	with open(garen_custom_conf, 'w') as configfile:
+		config.write(configfile)
+
+

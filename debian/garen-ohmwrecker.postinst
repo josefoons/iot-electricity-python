@@ -1,0 +1,32 @@
+#!/bin/sh
+
+
+set -e
+
+
+case $1 in
+        configure)
+                # Installing operation
+		echo " * [ Garen ] : Changing owner at /var/local/garen-ohmwrecker/"
+                chown -R www-data:www-data /var/local/garen-ohmwrecker/ || true
+		#chown -R www-data:www-data /var/www/ || true
+		chmod 666 /var/local/garen-ohmwrecker/garen-custom.conf || true
+		echo " * [ Garen ] : Installing cymysql via PIP"
+		pip3 install cymysql
+		echo " * [ Garen ] : Restarting service"
+		service garen restart  || true
+        ;;
+
+        abort-upgrade|abort-remove|abort-deconfigure)
+                echo "postinst called with argument \`$1'" >&2
+                exit 1
+        ;;
+
+        *)
+                echo "postinst called with unknown argument \`$1'" >&2
+                exit 1
+        ;;
+esac
+#DEBHELPER#
+
+exit 0

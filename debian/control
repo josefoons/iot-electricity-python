@@ -1,0 +1,15 @@
+Source: garen-ohmwrecker
+Section: metapackages
+Priority: extra
+Maintainer: Jose Fons <josefoons@gmail.com> David Goldero <davidgoldero@gmail.com>
+Build-Depends: debhelper (>=9), unzip, python3-dev, dh-python
+Standards-Version: 3.9.7
+
+Package: garen-ohmwrecker
+Architecture: all
+Pre-Depends: python3-pip
+Depends: ${misc:Depends}, apache2, mysql-server, libapache2-mod-php5
+Description: iot - carry
+ Simple package to solve the Estonian 
+ problem.
+

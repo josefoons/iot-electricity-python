@@ -1,0 +1,124 @@
+{
+	"_G_ULN[0]" : "Voltage L1-N",
+
+	"_G_ULN[1]" : "Voltage L2-N",
+
+	"_G_ULN[2]" : "Voltage L3-N",
+
+	"_G_ULL[0]" : "Voltage L1-L2",
+
+	"_G_ULL[1]" : "Voltage L2-L3",
+
+	"_G_ULL[2]" : "Voltage L3-L1",
+
+	"_G_ILN[0]" : "Apparent current, L1-N",
+
+	"_G_ILN[1]" : "Apparent current, L2-N",
+
+	"_G_ILN[2]" : "Apparent current, L3-N",
+
+	"_G_I_SUM3" : "Vector sum; IN=I1+I2+I3",
+
+	"_G_PLN[0]" : "Real power L1-N",
+
+	"_G_PLN[1]" : "Real power L2-N",
+
+	"_G_PLN[2]" : "Real power L3-N",
+
+	"_G_P_SUM3" : "Psum3=P1+P2+P3",
+
+	"_G_SLN[0]" : "Apparent power L1-N",
+
+	"_G_SLN[1]" : "Apparent power L2-N",
+
+	"_G_SLN[2]" : "Apparent power L3-N",
+
+	"_G_S_SUM3" : "Sum; Ssum3=S1+S2+S3",
+
+	"_G_QLN[0]" : "Reactive power L1 (fundamental comp.)",
+
+	"_G_QLN[1]" : "Reactive power L2 (fundamental comp.)",
+
+	"_G_QLN[2]" : "Reactive power L3 (fundamental comp.)",
+
+	"_G_Q_SUM3" : "Qsum3=Q1+Q2+Q3 (fundamental comp.)",
+
+	"_G_COS_PHI[0]" : "CosPhi; UL1 IL1 (fundamental comp.)",
+
+	"_G_COS_PHI[1]" : "CosPhi; UL2 IL2 (fundamental comp.)",
+
+	"_G_COS_PHI[2]" : "CosPhi; UL3 IL3 (fundamental comp.)",
+
+	"_G_FREQ" : "Measured frequency",
+
+	"_G_PHASE_SEQ" : "Rotation field; 1=right, 0=none, -1=left",
+
+	"_G_WH[0]" : "Real energy L1",
+
+	"_G_WH[1]" : "Real energy L2",
+
+	"_G_WH[2]" : "Real energy L3",
+
+	"_G_WH_SUML13" : "Real energy L1..L3",
+
+	"_G_WH_V[0]" : "Real energy L1, consumed",
+
+	"_G_WH_V[1]" : "Real energy L2, consumed",
+
+	"_G_WH_V[2]" : "Real energy L3, consumed",
+
+	"_G_WH_V_HT_SUML13" : "Real energy L1..L3, consumed, rate 1",
+
+	"_G_WH_Z[0]" : "Real energy L1, delivered",
+
+	"_G_WH_Z[1]" : "Real energy L2, delivered",
+
+	"_G_WH_Z[2]" : "Real energy L3, delivered",
+
+	"_G_WH_Z_SUML13" : "Real energy L1..L3, delivered",
+
+	"_G_WH_S[0]" : "Apparent energy L1",
+
+	"_G_WH_S[1]" : "Apparent energy L2",
+
+	"_G_WH_S[2]" : "Apparent energy L3",
+
+	"_G_WH_S_SUML13" : "Apparent energy L1..L3",
+
+	"_G_QH[0]" : "Reaktive energy L1 (fundamental comp.)",
+
+	"_G_QH[1]" : "Reaktive energy L2 (fundamental comp.)",
+
+	"_G_QH[2]" : "Reaktive energy L3 (fundamental comp.)",
+
+	"_G_QH_SUML13" : "Reaktive energy L1..L3 (fundamental comp.)",
+
+	"_G_IQH[0]" : "Reactive energy, inductive, L1 (fundamental comp.)",
+
+	"_G_IQH[1]" : "Reactive energy, inductive, L2 (fundamental comp.)",
+
+	"_G_IQH[2]" : "Reactive energy, inductive, L3 (fundamental comp.)",
+
+	"_G_IQH_SUML13" : "Reactive energy L1..L3, ind. (fundamental comp.)",
+
+	"_G_CQH[0]" : "Reactive energy, capacitive, L1 (fundamental comp.)",
+
+	"_G_CQH[1]" : "Reactive energy, capacitive, L2 (fundamental comp.)",
+
+	"_G_CQH[2]" : "Reactive energy, capacitive, L3 (fundamental comp.)",
+
+	"_G_CQH_SUML13" : "Reactive energy L1..L3, cap. (fundamental comp.)",
+
+	"_G_THD_ULN[0]" : "Harmonic, THD,U L1-N",
+
+	"_G_THD_ULN[1]" : "Harmonic, THD,U L2-N",
+
+	"_G_THD_ULN[2]" : "Harmonic, THD,U L3-N",
+
+	"_G_THD_ILN[0]" : "Harmonic, THD,I L1",
+
+	"_G_THD_ILN[1]" : "Harmonic, THD,I L2",
+
+	"_G_THD_ILN[2]" : "Harmonic, THD,I L3"
+
+}

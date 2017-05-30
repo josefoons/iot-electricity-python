@@ -1,0 +1,187 @@
+UMG 511
+12
+
+_G_ULN[0]
+_G_ULN[1]
+_G_ULN[2]
+_G_ULL[0]
+_G_ULL[1]
+_G_ULL[2]
+_G_ILN[0]
+_G_ILN[1]
+_G_ILN[2]
+_G_I_SUM3
+_G_PLN[0]
+_G_PLN[1]
+_G_PLN[2]
+_G_P_SUM3
+_G_SLN[0]
+_G_SLN[1]
+_G_SLN[2]
+_G_S_SUM3
+_G_QLN[0]
+_G_QLN[1]
+_G_QLN[2]
+_G_Q_SUM3
+_G_COS_PHI[0]
+_G_COS_PHI[1]
+_G_COS_PHI[2]
+_G_FREQ
+_G_PHASE_SEQ
+_G_WH[0]
+_G_WH[1]
+_G_WH[2]
+_G_WH_SUML13
+_G_WH_V[0]
+_G_WH_V[1]
+_G_WH_V[2]
+_G_WH_V_HT_SUML13
+_G_WH_Z[0]
+_G_WH_Z[1]
+_G_WH_Z[2]
+_G_WH_Z_SUML13
+_G_WH_S[0]
+_G_WH_S[1]
+_G_WH_S[2]
+_G_WH_S_SUML13
+_G_QH[0]
+_G_QH[1]
+_G_QH[2]
+_G_QH_SUML13
+_G_IQH[0]
+_G_IQH[1]
+_G_IQH[2]
+_G_IQH_SUML13
+_G_CQH[0]
+_G_CQH[1]
+_G_CQH[2]
+_G_CQH_SUML13
+_G_THD_ULN[0]
+_G_THD_ULN[1]
+_G_THD_ULN[2]
+_G_THD_ILN[0]
+_G_THD_ILN[1]
+_G_THD_ILN[2]
+
+Unit
+V
+V
+V
+V
+V
+V
+A
+A
+A
+A
+W
+W
+W
+W
+VA
+VA
+VA
+VA
+var
+var
+var
+var
+Hz
+Wh
+Wh
+Wh
+Wh
+Wh
+Wh
+Wh
+Wh
+Wh
+Wh
+Wh
+Wh
+VAh
+VAh
+VAh
+VAh
+varh
+varh
+varh
+varh
+varh
+varh
+varh
+varh
+varh
+varh
+varh
+varh
+%
+%
+%
+%
+%
+%
+
+Note
+Voltage L1-N
+Voltage L2-N
+Voltage L3-N
+Voltage L1-L2
+Voltage L2-L3
+Voltage L3-L1
+Apparent current, L1-N
+Apparent current, L2-N
+Apparent current, L3-N
+Vector sum; IN=I1+I2+I3
+Real power L1-N
+Real power L2-N
+Real power L3-N
+Psum3=P1+P2+P3
+Apparent power L1-N
+Apparent power L2-N
+Apparent power L3-N
+Sum; Ssum3=S1+S2+S3
+Reactive power L1 (fundamental comp.)
+Reactive power L2 (fundamental comp.)
+Reactive power L3 (fundamental comp.)
+Qsum3=Q1+Q2+Q3 (fundamental comp.)
+CosPhi; UL1 IL1 (fundamental comp.)
+CosPhi; UL2 IL2 (fundamental comp.)
+CosPhi; UL3 IL3 (fundamental comp.)
+Measured frequency
+Rotation field; 1=right, 0=none, -1=left
+Real energy L1
+Real energy L2
+Real energy L3
+Real energy L1..L3
+Real energy L1, consumed
+Real energy L2, consumed
+Real energy L3, consumed
+Real energy L1..L3, consumed, rate 1
+Real energy L1, delivered
+Real energy L2, delivered
+Real energy L3, delivered
+Real energy L1..L3, delivered
+Apparent energy L1
+Apparent energy L2
+Apparent energy L3
+Apparent energy L1..L3
+Reaktive energy L1 (fundamental comp.)
+Reaktive energy L2 (fundamental comp.)
+Reaktive energy L3 (fundamental comp.)
+Reaktive energy L1..L3 (fundamental comp.)
+Reactive energy, inductive, L1 (fundamental comp.)
+Reactive energy, inductive, L2 (fundamental comp.)
+Reactive energy, inductive, L3 (fundamental comp.)
+Reactive energy L1..L3, ind. (fundamental comp.)
+Reactive energy, capacitive, L1 (fundamental comp.)
+Reactive energy, capacitive, L2 (fundamental comp.)
+Reactive energy, capacitive, L3 (fundamental comp.)
+Reactive energy L1..L3, cap. (fundamental comp.)
+Harmonic, THD,U L1-N
+Harmonic, THD,U L2-N
+Harmonic, THD,U L3-N
+Harmonic, THD,I L1
+Harmonic, THD,I L2
+Harmonic, THD,I L3
+
