@@ -7,6 +7,7 @@ Standards-Version: 3.9.7
 
 Package: garen-ohmwrecker
 Architecture: all
+<<<<<<< HEAD
 Pre-Depends: python3-pip
 Depends: ${misc:Depends}, apache2, mysql-server, libapache2-mod-php5, python3-pip, python3-dev
 =======
