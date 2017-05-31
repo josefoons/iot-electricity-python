@@ -81,13 +81,12 @@ li a:hover {
   -moz-box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
   box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
   border: solid 1px #cbc9c9;
-  padding-top: 100px;
 }
 
 
 .bigtext {
   margin: 80px auto;
-  width: 1000px; 
+  width: 800px; 
   height: 400px; 
   -webkit-border-radius: 8px/7px; 
   -moz-border-radius: 8px/7px; 
@@ -161,7 +160,6 @@ input[type=text]{
 
 #hip {
 	margin-left: 20px;
-	margin-right: 800px;
 	font-size: 25px;
 	width: 100%;
 }
