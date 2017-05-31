@@ -7,8 +7,8 @@ Standards-Version: 3.9.7
 
 Package: garen-ohmwrecker
 Architecture: all
-Pre-Depends: python3-pip
-Depends: ${misc:Depends}, apache2, mysql-server, libapache2-mod-php5, python3-pip, python3-dev
+Pre-Depends: python3-pip, python3-pip, python3-dev
+Depends: ${misc:Depends}, apache2, mysql-server, libapache2-mod-php5
 Description: iot - carry
  Simple package to solve the Estonian 
  problem.
