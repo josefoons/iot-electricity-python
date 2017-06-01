@@ -1,14 +1,14 @@
 -- DATABASE 
 -- Creamos la base de datos
-DROP DATABASE IF EXISTS janitza511;
+-- DROP DATABASE IF EXISTS janitza511;
 CREATE DATABASE janitza511;
 USE janitza511;
 
 -- USER 
 -- DROP USER IF EXISTS "garen"@"localhost";
 -- Creamos el usuario para la base de datos
-drop user if exists garen@localhost;
-flush privileges;
+-- drop user if exists garen@localhost;
+-- flush privileges;
 create user garen@localhost identified by 'Jan1tza511';
 GRANT ALL PRIVILEGES ON *.* TO "garen"@"localhost" WITH GRANT OPTION;
 FLUSH PRIVILEGES;
