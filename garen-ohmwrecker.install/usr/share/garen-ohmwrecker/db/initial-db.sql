@@ -8,10 +8,11 @@ USE janitza511;
 -- DROP USER IF EXISTS "garen"@"localhost";
 -- Creamos el usuario para la base de datos
 -- Se dropea del todo a causa de mysql no acepta "IF EXISTS"
-DROP USER garen@localhost;
-FLUSH PRIVILEGES;
-CREATE USER garen@localhost  IDENTIFIED BY 'Jan1tza511';
-GRANT ALL PRIVILEGES ON *.* TO "garen"@"localhost" WITH GRANT OPTION;
+-- DROP USER garen@localhost;
+-- FLUSH PRIVILEGES;
+-- CREATE USER garen@localhost  IDENTIFIED BY 'Jan1tza511';
+-- GRANT ALL PRIVILEGES ON *.* TO "garen"@"localhost" WITH GRANT OPTION;
+GRANT ALL ON `janitza511`.* TO 'garen'@'localhost' IDENTIFIED BY 'Jan1tza511';
 FLUSH PRIVILEGES;
 
 
