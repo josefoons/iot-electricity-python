@@ -22,7 +22,7 @@ Pasos para preparación:
 Iniciar el navegador con la IP del dispositivo.
 
 Conexion con UMG511
-Entrar en la web: http://IP_RASPBERRY/ip.php
+Entrar en la web: http://IP_RASPBERRY/ip.php .
 Introducir la IP del dispositivo UMG511 y un rango de tiempo en segundos.
 	
 	
