@@ -1,7 +1,7 @@
 Minimum requirements:
 	- Active SSH (raspi-config > interfaces > SSH)
 	- Active FTP (vsftpd)
-	- Debian Package. ( https://github.com/josefoons/iot-electricity-python/blob/master/DEB/garen-ohmwrecker_0.6_all.deb )
+	- Debian Package. ( https://github.com/josefoons/iot-electricity-python/blob/master/Downloads/garen-ohmwrecker_0.6_all.deb )
 	- python3-pip
 	- libapache2-mod-php5
 	- mysql-server
