@@ -31,4 +31,4 @@ How to clear DataBase (Always with ";" in mysql).
 	Write: USE (database);
 	Write: truncate (TABLE);
 	Write: exit;
-	And ENJOY.
+	And "sudo service garen restart"
