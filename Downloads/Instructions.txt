@@ -22,7 +22,13 @@ Preparation Steps:
 Start the browser with the IP of the device.
 
 Conect to UMG511
-	Login to the web: http://IP_RASPBERRY/ip.php
+	Login to the web: http://RASPBERRY_IP/index.php
 	Enter the IP of the UMG511 device and a range of time in seconds.
 	
-	
+How to clear DataBase (Always with ";" in mysql).
+	Login into Raspberry IP (SSH access).
+	Connect to MySQL server ( mysql -u root -p ) and enter the password 
+	Write: USE (database);
+	Write: truncate (TABLE);
+	Write: exit;
+	And ENJOY.
