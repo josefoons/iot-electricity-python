@@ -25,7 +25,7 @@ Conect to UMG511
 How to clear DataBase (Always with ";" in mysql).
 - Login into Raspberry IP (SSH access).
 - Connect to MySQL server ( mysql -u root -p ) and enter the password 
-- Write: USE (database);
-- Write: truncate (TABLE);
+- Write: USE <database>;
+- Write: truncate <TABLE>;
 - Write: exit;
 - And "sudo service garen restart" <--- IMPORTANT
