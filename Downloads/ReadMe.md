@@ -1,34 +1,31 @@
 Minimum requirements:
-	- Active SSH (raspi-config > interfaces > SSH)
-	- Active FTP (vsftpd)
-	- Debian Package. ( https://github.com/josefoons/iot-electricity-python/blob/master/Downloads/garen-ohmwrecker_0.6_all.deb )
-	- python3-pip
-	- libapache2-mod-php5
-	- mysql-server
-	- apache2
-	- php5
-	- php5-mysql
-	
-Preparation Steps:
-	1. Activate SSH
-	1.1. Activate FTP (Optional)
-	2. Install dependencies ( sudo apt-get install python3-pip libapache2-mod-php5 mysql-server apache2 php5 php5-mysql )
-	3. Install our DEB ( sudo dpkg -i garen-ohmwrecker_0.6_all.deb )
-	4. Dump .sql file to mysql-server ( mysql -u root -p < /usr/share/garen-ohmwrecker/db/initial-db.sql )
-	5. Delete index.html ( sudo rm -r /var/www/html/index.html )
-	6. Restart service apache2 ( sudo service apache2 reload )
-	7. Restart service garen ( sudo service garen reload )
+- Active SSH (raspi-config > interfaces > SSH)
+- Active FTP (vsftpd)
+- Debian Package. ( https://github.com/josefoons/iot-electricity-python/blob/master/Downloads/garen-ohmwrecker_0.6_all.deb )
+- python3-pip
+- libapache2-mod-php5
+- mysql-server
+- apache2
+- php5
+- php5-mysql
 
-Start the browser with the IP of the device.
+Preparation Steps:
+1. Activate SSH and Activate FTP (Optional)
+2. Install dependencies ( sudo apt-get install python3-pip libapache2-mod-php5 mysql-server apache2 php5 php5-mysql )
+3. Install our DEB ( sudo dpkg -i garen-ohmwrecker_0.6_all.deb )
+4. Dump .sql file to mysql-server ( mysql -u root -p < /usr/share/garen-ohmwrecker/db/initial-db.sql )
+5. Delete index.html ( sudo rm -r /var/www/html/index.html )
+6. Restart service apache2 ( sudo service apache2 reload )
+7. Restart service garen ( sudo service garen reload )
 
 Conect to UMG511
-	Login to the web: http://RASPBERRY_IP/index.php
-	Enter the IP of the UMG511 device and a range of time in seconds.
+- Login to the web: http://RASPBERRY_IP/index.php
+- Enter the IP of the UMG511 device and a range of time in seconds.
 	
 How to clear DataBase (Always with ";" in mysql).
-	Login into Raspberry IP (SSH access).
-	Connect to MySQL server ( mysql -u root -p ) and enter the password 
-	Write: USE (database);
-	Write: truncate (TABLE);
-	Write: exit;
-	And "sudo service garen restart" <--- IMPORTANT
+- Login into Raspberry IP (SSH access).
+- Connect to MySQL server ( mysql -u root -p ) and enter the password 
+- Write: USE (database);
+- Write: truncate (TABLE);
+- Write: exit;
+- And "sudo service garen restart" <--- IMPORTANT
