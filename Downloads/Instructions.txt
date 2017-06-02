@@ -29,3 +29,8 @@ How to clear DataBase (Always with ";" in mysql).
 - Write: truncate <TABLE>;
 - Write: exit;
 - And "sudo service garen restart" <--- IMPORTANT
+
+
+
+======== ! IMPORTANT THING ! ========
+If when starting the system, the system does not begin to store, enter the SSH and restart the process ( sudo service garen restart )
