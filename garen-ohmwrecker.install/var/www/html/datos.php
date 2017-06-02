@@ -16,6 +16,7 @@
 			<li><a href="index.php">Home</a></li>
 			<li><a href="ip.php">IP</a></li>
 			<li><a href="datos.php">Data</a></li>
+			<li><a href="https://github.com/josefoons/iot-electricity-python/blob/master/Downloads/Instructions.txt">TUTORIAL</a></li>
 		</ul>
 	 	 <div class="datos">
 		 <h1>DOWNLOAD</h1>

@@ -36,6 +36,7 @@ echo "<pre>$output</pre>";
 			<li><a href="index.php">Home</a></li>
 			<li><a href="ip.php">IP</a></li>
 			<li><a href="datos.php">Data</a></li>
+			<li><a href="https://github.com/josefoons/iot-electricity-python/blob/master/Downloads/Instructions.txt">TUTORIAL</a></li>
 		</ul>
 		
 	<!-- Esto es el contenido de la web -->
