@@ -29,7 +29,3 @@ How to clear DataBase (Always with ";" in mysql).
 - Write: truncate (TABLE);
 - Write: exit;
 - And "sudo service garen restart" <--- IMPORTANT
-
- With love, Glody
-	
-	
